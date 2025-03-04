@@ -1,0 +1,43 @@
+With remote acquisitions, what problems should you be aware of?
+Antivirus, antispyware, and firewall programs
+Why is it a good practice to make two images of a suspect drive in a critical investigation?
+To ensure at least one good copy of the forensically collected data in case of any failures
+In Linux, the fdisk -l command lists the suspect drive as /dev/hda1. So, the following dcfldd is command correct. dcfldd if=image_file.img of=/dev/hda1
+False
+With newer Linux kernel distributions, USB devices are automatically mounted, which can alter data on it.
+True
+A hashing algorithm is a program designed to create a binary or hexadecimal number that represents the uniqueness of a data set, file, or entire disk.
+True
+FTK Imager requires that you use a device such as a USB dongle for licensing.
+True
+In the Linux dcfldd command, which three options are used for validating data?
+hash, hashlog, and vf
+What's the maximum file size when writing data to a FAT32 drive?
+2 GB
+Slower data transfer speeds and dealing with minor data errors are two disadvantages of the raw format
+False
+FTK Imager can acquire data in a drive's host protected area.
+False
+A logical acquisition collects only specific files of interest to the case.
+True
+Of all the proprietary formats, which one is the unofficial standard?
+Expert Witness
+What are two concerns when acquiring data from a RAID server?
+Amount of data storage needed and type of RAID
+Name the three formats for digital forensics data acquisitions.
+Raw format, proprietary formats, and AFF
+When determining which data acquisition method to use you should not consider how long the acquisition will take.
+False
+What does a sparse acquisition collect for an investigation?
+Fragments of unallocated data in addition to the logical allocated data
+The main goal of a static acquisition is the preservation of digital evidence.
+True
+Which forensics tools can connect to a suspect's remote computer and run surreptitiously?
+EnCase Enterprise and ProDiscover Incident Response
+What's the most critical aspect of digital evidence?
+Validation
+Name two commercial tools that can make a forensic sector-by-sector copy of a drive to a larger drive.
+EnCase and X-Ways Forensics
+Commonly, proprietary format acquisition files can compress the acquisition data and segment acquisition output files into smaller volumes.
+True
+

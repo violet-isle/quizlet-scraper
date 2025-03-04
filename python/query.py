@@ -13,6 +13,8 @@ cse_key = 'AIzaSyDO22ReOgKlXN-1xQ3Mg78fiKTi-AB7NEg'
 
 
 def query_existing_data(question):
+    if (not os.path.exists("data.txt")):
+        return "No existing data found"
     with open("data.txt", "r", encoding="utf-8") as f:
         lines = f.readlines()
     best_match = process.extractOne(question, lines)
@@ -29,11 +31,16 @@ def get_search_results(question):
 
 # Monitor the file for changes
 def wait_for_change(filename):
+    creating_new = False
+    while not os.path.exists(filename):
+        creating_new = True
+        time.sleep(1)  # Check every 1 second
     last_modified = os.path.getmtime(filename)
     while True:
         new_modified = os.path.getmtime(filename)
-        if new_modified != last_modified:
+        if (new_modified != last_modified or creating_new):
             last_modified = new_modified
+            creating_new = False
             return True  # File has changed
         else:
             continue  # Wait and check again
@@ -41,7 +48,7 @@ def wait_for_change(filename):
 if __name__ == "__main__":
     q = sys.argv[1]
     a = query_existing_data(q)
-    if (a != "No existing match found"):
+    if (a != "No existing match found" and a != "No existing data found"):
         print(a)
     else:
         print(a)
