@@ -4,6 +4,15 @@ console.log("Content script loaded!");
 let ctrlPressed = false;
 let altPressed = false;
 
+let mouseX = 0, mouseY = 0;
+
+// Track the mouse position
+document.addEventListener("mousemove", function (event) {
+    mouseX = event.pageX;
+    mouseY = event.pageY;
+});
+
+
 // Listen for keydown events to detect if Ctrl or Alt is pressed
 document.addEventListener('keydown', (event) => {
     if (event.ctrlKey) ctrlPressed = true;
@@ -17,70 +26,57 @@ document.addEventListener('keyup', (event) => {
 });
 
 // Listen for a click on the page and extract the text
-document.addEventListener('click', (event) => {
-    if (ctrlPressed && altPressed) {
-    // Extract the text from the clicked element (you can adjust the method as needed)
-    const text = event.target.innerText || event.target.textContent;
+document.addEventListener("click", function (event) {
+    if (event.ctrlKey && event.altKey) { // Only trigger when Ctrl + Alt are held
+        event.preventDefault();
+        let clickedText = event.target.innerText.trim();
 
-    if (text) {
-        // Send the extracted text to the Flask server
-        fetch('http://localhost:5000/extension_query', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                text: text,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => {
-            let responseText = data.message || 'No response';
-            
-            // Log the response to console
-            console.log('Server Response:', responseText);
-            
-            // Create and display the popup with the response
-            createPopup(event.clientX, event.clientY, responseText);
-        })
-            .catch(error => {
-                console.error('Error sending text:', error);
+        if (clickedText) {
+            console.log("Extracted text:", clickedText);
+
+            // Send message to background script
+            chrome.runtime.sendMessage({
+                action: "query_server",
+                text: clickedText
             });
-    }}
+        }
+    }
+}, true);
+
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.action === "display_popup") {
+        console.log("Displaying popup with response:", message.response);
+        showPopup(message.response);
+    }
 });
 
+function showPopup(text) {
+    let existingPopup = document.getElementById("custom-popup");
+    if (existingPopup) {
+        existingPopup.remove();
+    }
 
-// Function to create the popup
-function createPopup(x, y, text) {
-    // Create a new div element for the popup
-    let popup = document.createElement('div');
-    popup.className = 'popup';
-    popup.style.position = 'absolute';
-    popup.style.left = `${x + 10}px`; // Position the popup slightly to the right of the click
-    popup.style.top = `${y + 10}px`;  // Position the popup slightly below the click
-    popup.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-    popup.style.color = 'white';
-    popup.style.padding = '10px';
-    popup.style.borderRadius = '5px';
-    popup.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)';
-    popup.style.maxWidth = '300px';
-    popup.style.wordWrap = 'break-word';
-    popup.style.fontSize = '14px';
-    popup.style.zIndex = '999999'; // Make sure it's on top of other content
+    let popup = document.createElement("div");
+    popup.id = "custom-popup";
     popup.innerText = text;
 
-    // Append the popup to the document
+    // Styling the popup
+    Object.assign(popup.style, {
+        position: "absolute",
+        left: mouseX + 10 + "px",  // Slight offset for better visibility
+        top: mouseY + 10 + "px",
+        backgroundColor: "black",
+        color: "white",
+        padding: "10px",
+        borderRadius: "5px",
+        boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+        fontSize: "14px",
+        zIndex: "100000"
+    });
+
     document.body.appendChild(popup);
 
-    // Remove the popup after 5 seconds
     setTimeout(() => {
         popup.remove();
-    }, 5000);
-
-    // Optional: Close the popup when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!popup.contains(e.target)) {
-            popup.remove();
-        }
-    });
+    }, 5000); // Hide after 5 seconds
 }
