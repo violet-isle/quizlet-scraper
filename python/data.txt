@@ -1,43 +1,217 @@
-With remote acquisitions, what problems should you be aware of?
-Antivirus, antispyware, and firewall programs
-Why is it a good practice to make two images of a suspect drive in a critical investigation?
-To ensure at least one good copy of the forensically collected data in case of any failures
-In Linux, the fdisk -l command lists the suspect drive as /dev/hda1. So, the following dcfldd is command correct. dcfldd if=image_file.img of=/dev/hda1
+The term TDMA refers to which of the following?
+A technique of dividing a radio frequency so that multiple users share the same channel.&&A specific cellular network standard
+When acquiring a mobile device at an investigation scene, you should leave it connected to a laptop or tablet so that you can observe synchronization as it takes place.
 False
-With newer Linux kernel distributions, USB devices are automatically mounted, which can alter data on it.
+The Internet of Things includes radio frequency identification (RFID) sensors as well as wired, wireless, and mobile devices.
 True
-A hashing algorithm is a program designed to create a binary or hexadecimal number that represents the uniqueness of a data set, file, or entire disk.
-True
-FTK Imager requires that you use a device such as a USB dongle for licensing.
-True
-In the Linux dcfldd command, which three options are used for validating data?
-hash, hashlog, and vf
-What's the maximum file size when writing data to a FAT32 drive?
-2 GB
-Slower data transfer speeds and dealing with minor data errors are two disadvantages of the raw format
+IETF is the organization setting standards for 5G devices.
 False
-FTK Imager can acquire data in a drive's host protected area.
+What's the most commonly used cellular network worldwide?
+GSM
+Which of the following is a mobile forensics method listed in NIST guidelines.
+Hex dumping&&Logical extraction&&Physical extraction
+Which of the following categories of information is stored on a SIM card?
+Cell data&&Service-related data
+Remote wiping of a mobile device can result in which of the following?
+Removing account information&&Deleting contacts&&Returning the phone to the original factory settings
+Placing it in paint and using Faraday bags are two ways you can isolate a mobile device from incoming signals.
+True
+Mobile device information might be stored on the internal memory or the SIM card.
+True
+Which of the following relies on a central database that tracks account data, location data, and subscriber information?
+MSC
+SIM card readers can alter evidence by showing that a message has been read when you view it.
+True
+According to SANS DFIR Forensics, which of the following tasks should you perform if a mobile device is on and unlocked?
+Remove the passcode&&Isolate the device from the network&&Disable the screen lock
+SD cards have a capacity up to which of the following?
+64 GB
+GSM divides a mobile station into ________ and ____
+SIM card and ME
+The uRLLC 5G category focuses on communications in smart cities.
 False
-A logical acquisition collects only specific files of interest to the case.
+In which of the following cases did the U.S. Supreme Court require using a search warrant to examine the contents of mobile devices?
+Riley v. California
+Typically, you need a search warrant to retrieve information from a service provider?
 True
-Of all the proprietary formats, which one is the unofficial standard?
-Expert Witness
-What are two concerns when acquiring data from a RAID server?
-Amount of data storage needed and type of RAID
-Name the three formats for digital forensics data acquisitions.
-Raw format, proprietary formats, and AFF
-When determining which data acquisition method to use you should not consider how long the acquisition will take.
+Most SIM cards allow ________ access attempts before locking you out.
+Three
+
+Mobile device information might be stored on the internal memory or the SIM card.
+True
+GSM divides a mobile station into ______ and ______.&&SIM card and EEPROM&&SIM card and ME&&RAM and SIM&&RAM and ME
+SIM card and ME
+The Internet of Things includes radio frequency identification (RFID) sensors as well as wired, wireless, and mobile devices.
+True
+SIM card readers can alter evidence by showing that a message has been read when you view it.
+True
+Placing it in paint cans and using Faraday bags are two ways you can isolate a mobile device from incoming signals.
+True
+What's the most commonly used cellular network worldwide?&&CDMA&&EDGE&&GSM&&TDMA
+GSM
+Which of the following relies on a central database that tracks account data, location data, and subscriber information?&&BTS&&MSC&&BSC&&None of the above
+MSC
+Remote wiping of a mobile device can result in which of the following?&&Returning the phone to the original factory settings&&Deleting contacts&&Removing account information&&All of the above
+All of the above
+IETF is the organization setting standards for 5G devices.
 False
-What does a sparse acquisition collect for an investigation?
-Fragments of unallocated data in addition to the logical allocated data
-The main goal of a static acquisition is the preservation of digital evidence.
+Most SIM cards allow ______ access attempts before locking you out.&&One&&Four&&Three&&Two
+Three
+SD cards have a capacity up to which of the following?&&500 MB&&64 GB&&100 MB&&4 MB
+64 GB
+When acquiring a mobile device at an investigation scene, you should leave it connected to a laptop or tablet so that you can observe synchronization as it takes place.
+False
+The term TDMA refers to which of the following?&&a: A technique of dividing a radio frequency so that multiple users share the same channel&&b: A proprietary protocol developed by Motorola&&c: A specific cellular network standard&&Both a and c
+Both a and c
+Which of the following categories of information is stored on a SIM card?&&a: Call data&&b: Service-related data&&Both a and b&&None of the above
+Both a and b
+Which of the following is a mobile forensics method listed in NIST guidelines?&&Physical extraction&&Logical extraction&&Hex dumping&&All of the above
+All of the above
+The uRLLC 5G category focuses on communications in smart cities.
+False
+Typically, you need a search warrant to retrieve information from a service provider.
 True
-Which forensics tools can connect to a suspect's remote computer and run surreptitiously?
-EnCase Enterprise and ProDiscover Incident Response
-What's the most critical aspect of digital evidence?
-Validation
-Name two commercial tools that can make a forensic sector-by-sector copy of a drive to a larger drive.
-EnCase and X-Ways Forensics
-Commonly, proprietary format acquisition files can compress the acquisition data and segment acquisition output files into smaller volumes.
+In which of the following cases did the U.S. Supreme Court require using a search warrant to examine the contents of mobile devices?&&Riley v. California&&Dearborn v. Ohio&&Smith v. Oregon&&Miles v. North Dakota
+Riley v. California
+According to SANS DFIR Forensics, which of the following tasks should you perform if a mobile device is on and unlocked?&&Disable the screen lock.&&Isolate the device from the network.&&Remove the passcode.&&All of the above
+All of the above
+
+Which of the following is a mobile forensics method listed in NIST guidelines?&&a. logical extraction&&b. hex dumping&&c. physical extraction&&d. all of the above
+d. all of the above
+Which of the following relies on a central database that tracks account data, location data, and subscriber information?&&a. BTS&&b. MSC&&c. BSC&&d. none of the above
+b. MSC
+The term TDMA refers to which of the following?&&a. a technique of dividing a radio frequency so that multiple users share the same channel&&b. A proprietary protocol developed by Motorola&&c. A specific cellular network standard&&d. both a and c
+d. both a and c
+In which of the following cases did the U.S. Supreme Court require using a search warrant to examine the contents of mobile devices?&&a. Riley v California&&b. Miles v North Dakota&&c. Dearborn v Ohio&&d. Smith v Oregon
+a. Riley v California
+What's the most commonly used cellular network worldwide?&&a. CDMA&&b. GSM&&c. EDGE&&d. TDMA
+b. GSM
+Most SIM cards allow ______ access attempts before locking you out.&&a. four&&b. three &&c. two &&d. one
+b. three
+When acquiring a mobile device at an investigation scene, you should leave it connected to a laptop or tablet so that you can observe synchronization as it takes place.&&a. true&&b. false
+b. false
+Placing it in paint cans and using Faraday bags are two ways you can isolate a mobile device from incoming signals.&&a. true&&b. false
+a. true
+Mobile device information might be stored on the internal memory or the SIM card.&&a. true&&b. false
+a. true
+According to SANS DFIR Forensics, which of the following tasks should you perform if a mobile device is on and unlocked?&&a. disable screen lock&&b. remove passcode&&c. isolate device from network&&d. all of the above
+d. all of the above
+IETF is the organization setting standards for 5G devices.&&a. true&&b. false
+b. false
+The uRLLC 5G category focuses on communications in smart cities.&&a. true&&b. false
+b. false
+Remote wiping of a mobile device can result in which of the following?&&a. deleting contacts&&b. removing account info&&c. returning phone to original factory settings&&d. all of the above
+d. all of the above
+The Internet of Things includes radio frequency identification (RFID) sensors as well as wired, wireless, and mobile devices.&&a. true &&b. false
+a. true
+GSM divides a mobile station into ______ and ______.&&a. RAM and ME&&b. RAM and SIM&&c. SIM card and EEPROM&&d. SIM card and ME
+d. SIM card and ME
+Which of the following categories of information is stored on a SIM card?&&a. call data&&b. service related data&&c. both a and b&&d. none of the above
+c. both a and b
+SIM card readers can alter evidence by showing that a message has been read when you view it.&&a. true&&b. false
+a. true
+Typically, you need a search warrant to retrieve information from a service provider.&&a. true&&b. false
+a. true
+SD cards have a capacity up to which of the following?&&a. 4MB&&b. 500MB&&c. 64GB&&d. 100 MB
+c. 64GB
+
+Public cloud services such as Dropbox and OneDrive use Sophos SafeGuard and Sophos Mobile Control as their encryption applications
 True
+What capabilities should a forensics tool have to acquire data from a cloud?
+- examine virtual systems&&- Expand and contract data storage capabilites as needed for service changes.&&- Identify and acquire data from the cloud.&&<b>- All of the above</b>
+What are the three levels of cloud services defined by NIST?
+- Saas&&- PaaS&&- IaaS
+When should a temporary restraining order be requested for cloud environments?
+When a search warrant requires seizing a CSP's hardware and software used by other parties not involved in the case
+Amazon was an early provider of Web-based services that eventually developed into the cloud concept.
+True
+In which cloud service level can customers rent hardware and install whatever OSs and applications they need?
+IaaS
+The multitenancy nature of cloud environments means conflicts in privacy laws can occur.
+True
+The cloud services Dropbox, Google Drive, and OneDrive have Registry entries.
+True
+A CSP's incident response team typically consists of system administrators, network administrators, and legal advisors.
+True
+Commingled data isn't a concern when acquiring cloud data.
+Fasle
+Evidence of cloud access found on a smartphone usually means which cloud service level was in use?
+SaaS
+To see Google Drive synchronization files, you need a SQL viewer.
+True
+NIST document SP 500-322 defines more than 75 cloud services, including which of the following?
+- Backup as a service&&- Security as a service&&- Drupal as a service&&<b>- All of the above</b>
+Which of the following cloud deployment methods typically offers no security?
+Public cloud
+What are the two states of encrypted data in a secure cloud?
+Data in motion and data at rest
+Updates to the EU Data Protection Rules will affect how data is moved during an investigation regardless of location.
+True
+A(n) CSA or cloud service agreement is a contract between a CSP and the customer that describes what services are being provided and at what level.
+True
+Which of the following is a mechanism the ECPA describes for the government to get electronic information from a provider?
+- Court orders&&-Search warrents&&- Subpoenas with prior notice&&<b>- All of the above</b>
+
+True/False:&&In Inflation, the dollar gets stronger
+False; it actually weakens
+Which of these statements are NOT true? &&-inflation is good for the debtor, bad for the creditor&&-what a business has earned above all costs is called a profit&&-if a product has almost no response from the market, the price will drop&&-in inflation, the dollar gets stronger &&-if everyone wants cherry-flavored Supersoda, the company can increase its price and sales will still be strong
+-in inflation, the dollar gets stronger
+______________ is when prices in a national economy increase, or the purchasing power of the dollar weakens on a continual basis.
+Inflation
+Descendants of the expelled Russian Mennonite farmers have continued to grow enormous crops of _________ in the U.S.
+Red wheat
+Laser Supermarket increases prices in an item from 75¢ to $1.50.... and nobody cares. They'll buy it anyways. This is an example of ___________________
+Law of Supply and Demand
+The higher the demand, the ______ a price can be put on the item.
+Higher
+What are examples of service jobs?
+Stockroom work, waiter/waitress nurse, house cleaning, painter, butler, accountant, dentist
+A ____________means all the people in your nation who are working or who are seeking work
+Labor force
+An advantage for oneself; a benefit or gain is called a _______
+Boon
+In making your countries economy grow, look at your natural _________
+Resources
+True/ False:&&-Your nations money is considered capital
+True
+True/False: &&-your nations labor force includes people who want to work but do not have a job at the moment
+True
+True/False: &&-it would not make much sense to force an unskilled laborer to work in a surgical position
+True
+True/False:&&The 2nd part of creating your nations economy is that you must build capital
+True
+Which of the following is NOT true about capital? &&-Capital is your nations money&&-capital is your neighboring country's money &&-Capital is your companies tractor equipment &&-capital is your countries seed business in Missouri&&-capital is your nations shoe factory
+-capital is your neighboring country's money
+Inflation is an economic condition is which the _____ Supply is incredible g faster than the Supply of goods and services
+Money
+Inflation hurts the______, but helps the ______
+Creditor; debtor
+Labor demands a higher wage to compensate for inflation, which leads to higher prices, then even higher wages. This is called a _________
+Wage-price spiral
+The result of inflation is a _______ in the general price level
+Rise
+Charles Goodyear learned the process of ________________ rubber (which made the rubber incredibly strong and durable)
+Vulcanizing
+3 Types of Economic Systems: &&___________________
+-communism&&-mixed economy&&-capitalistic
+The capitalistic system is also called a _________________________
+Free enterprise system
+In a mixed economy, the government has more control over such industries as ______________________
+Railroads and mines
+What is an example of capitalism work?
+A farmers market
+What are some things to consider in making an economy grow?
+The labor force and he technology available
+The science of producing, distributing, and consuming foods or products
+Economics
+The Scottish economist who wrote of the need for basic economic freedoms
+Adam Smith
+Condemns those who cheat to get wealthy
+Proverbs 28
+Wrote the "Communist Manifesto"
+Karl Marx
+A contemporary example of a communistic economic system
+China
+Honors the woman who manages her household well
+Proverbs 31
 

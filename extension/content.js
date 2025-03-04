@@ -1,6 +1,6 @@
 // content.js
 function sendDataToServer(text, url) {
-  
+
   fetch('http://localhost:5000/data', {
     method: 'POST',
     headers: {
@@ -8,13 +8,14 @@ function sendDataToServer(text, url) {
     },
     body: JSON.stringify({ text: text, url: url }),  // Ensure proper stringification of the data
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Data sent successfully:', data);
-  })
-  .catch(error => {
-    console.error('Error sending data:', error);
-  });
+    .then(response => response.json())
+    .then(data => {
+      console.log('Data sent successfully:', data);
+      window.close();
+    })
+    .catch(error => {
+      console.error('Error sending data:', error);
+    });
 }
 
 const xpath = "//span[@class='TermText notranslate lang-en']";
