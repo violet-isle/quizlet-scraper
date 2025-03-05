@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Settings</title>
+    <style>
+        body {
+            width: 200px;
+            padding: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+        }
+
+        .value {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="timeoutSlider">Popup Timeout (ms):</label>
+    <input type="range" id="timeoutSlider" name="timeoutSlider" min="1000" max="10000" step="100" value="5000">
+    <div class="value" id="sliderValue">5000 ms</div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

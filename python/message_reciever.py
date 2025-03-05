@@ -15,7 +15,10 @@ cse_request_url = 'https://www.googleapis.com/customsearch/v1'
 cse_cx = '009651248597238434110:rv56718xitr'
 cse_key = 'AIzaSyDO22ReOgKlXN-1xQ3Mg78fiKTi-AB7NEg'
 
-data_file_path = os.path.join(os.getcwd(), "python/data.txt")
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+data_file_path = os.path.join(script_dir, "data.txt")
+
 
 urlList = []
 data_dict = {}

@@ -1,22 +1,23 @@
 console.log("Content script loaded!");
 
-
 let ctrlPressed = false;
 let altPressed = false;
-
 let mouseX = 0, mouseY = 0;
 let lastMouseEvent = null;
+let popup = null; // Store the popup globally
+let targetWindow = null;
+let popupTimeout = 5000;  // Default timeout value
 
 document.addEventListener("mousemove", (event) => {
     lastMouseEvent = event;
-});
-
-// Track the mouse position
-document.addEventListener("mousemove", function (event) {
     mouseX = event.pageX;
     mouseY = event.pageY;
-});
 
+    // If popup exists, update its position
+    if (popup) {
+        updatePopupPosition();
+    }
+});
 
 // Listen for keydown events to detect if Ctrl or Alt is pressed
 document.addEventListener('keydown', (event) => {
@@ -34,7 +35,6 @@ document.addEventListener('keyup', (event) => {
 function extractTextFromElement(element) {
     if (!element) return "";
 
-    // Check if the clicked element is a d2l-html-block
     if (element.tagName.toLowerCase() === "d2l-html-block") {
         let htmlContent = element.getAttribute("html");
         if (htmlContent) {
@@ -44,22 +44,22 @@ function extractTextFromElement(element) {
         }
     }
 
-    // Default: Try normal text extraction
     return element.innerText || element.textContent || "";
 }
 
-
-
 // Listen for a click on the page and extract the text
 document.addEventListener("click", function (event) {
-    if (event.ctrlKey && event.altKey) { // Only trigger when Ctrl + Alt are held
+    if (event.ctrlKey && event.altKey) {
         event.preventDefault();
+        event.stopImmediatePropagation();
         let clickedText = extractTextFromElement(event.target).trim();
+
+        targetWindow = event.view
+
 
         if (clickedText) {
             console.log("Extracted text:", clickedText);
 
-            // Send message to background script
             chrome.runtime.sendMessage({
                 action: "query_server",
                 text: clickedText
@@ -68,38 +68,43 @@ document.addEventListener("click", function (event) {
     }
 }, true);
 
+// Listen for response from background script to display popup
 chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "display_popup") {
         console.log("Displaying popup with response:", message.response);
-        showPopup(message.response);
+        if (targetWindow && window === targetWindow) {
+            showPopup(message.response);
+        } else {
+            console.log("Ignoring popup in incorrect window");
+        }
+    }
+    if (message.action === "update_timeout") {
+        popupTimeout = message.timeout;
+        console.log("Updated popup timeout:", popupTimeout);
     }
 });
 
+
+
+// Function to create and display popup
 function showPopup(text) {
-    if (!lastMouseEvent) return; // Ensure we have mouse position data
+    if (!lastMouseEvent) return;
 
-    // Only show the popup in the frame the mouse is in
-    if (window !== lastMouseEvent.view) {
-        console.log("Ignoring popup in incorrect frame");
-        return;
+    console.log(lastMouseEvent.view)
+
+    let frameDocument = document;
+
+    // Remove existing popup if it exists
+    if (popup) {
+        popup.remove();
     }
 
-    let frameDocument = lastMouseEvent.target.ownerDocument;
-    let existingPopup = frameDocument.getElementById("custom-popup");
-
-    if (existingPopup) {
-        existingPopup.remove();
-    }
-
-    let popup = frameDocument.createElement("div");
+    popup = frameDocument.createElement("div");
     popup.id = "custom-popup";
     popup.innerText = text;
 
-    // Position the popup near the cursor
     Object.assign(popup.style, {
         position: "absolute",
-        left: lastMouseEvent.clientX + "px",
-        top: lastMouseEvent.clientY + 20 + "px",
         backgroundColor: "black",
         color: "white",
         padding: "10px",
@@ -107,12 +112,27 @@ function showPopup(text) {
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
         fontSize: "14px",
         zIndex: "100000",
-        pointerEvents: "none"
+        pointerEvents: "none",
+        transition: "top 0.05s ease-out, left 0.05s ease-out"
     });
 
     frameDocument.body.appendChild(popup);
+    
+    updatePopupPosition();
+    console.log(popupTimeout)
 
     setTimeout(() => {
-        popup.remove();
-    }, 5000);
+        if (popup) {
+            popup.remove();
+            popup = null;
+        }
+    }, popupTimeout);
+}
+
+// Function to update popup position to follow the cursor
+function updatePopupPosition() {
+    if (popup) {
+        popup.style.left = `${mouseX + 15}px`; // Offset to avoid covering cursor
+        popup.style.top = `${mouseY + 15}px`;
+    }
 }
