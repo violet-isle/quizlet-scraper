@@ -5,6 +5,11 @@ let ctrlPressed = false;
 let altPressed = false;
 
 let mouseX = 0, mouseY = 0;
+let lastMouseEvent = null;
+
+document.addEventListener("mousemove", (event) => {
+    lastMouseEvent = event;
+});
 
 // Track the mouse position
 document.addEventListener("mousemove", function (event) {
@@ -25,11 +30,31 @@ document.addEventListener('keyup', (event) => {
     if (!event.altKey) altPressed = false;
 });
 
+// Function to extract text, including from d2l-html-block elements
+function extractTextFromElement(element) {
+    if (!element) return "";
+
+    // Check if the clicked element is a d2l-html-block
+    if (element.tagName.toLowerCase() === "d2l-html-block") {
+        let htmlContent = element.getAttribute("html");
+        if (htmlContent) {
+            let tempDiv = document.createElement("div");
+            tempDiv.innerHTML = htmlContent;
+            return tempDiv.innerText.trim();
+        }
+    }
+
+    // Default: Try normal text extraction
+    return element.innerText || element.textContent || "";
+}
+
+
+
 // Listen for a click on the page and extract the text
 document.addEventListener("click", function (event) {
     if (event.ctrlKey && event.altKey) { // Only trigger when Ctrl + Alt are held
         event.preventDefault();
-        let clickedText = event.target.innerText.trim();
+        let clickedText = extractTextFromElement(event.target).trim();
 
         if (clickedText) {
             console.log("Extracted text:", clickedText);
@@ -51,32 +76,43 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 function showPopup(text) {
-    let existingPopup = document.getElementById("custom-popup");
+    if (!lastMouseEvent) return; // Ensure we have mouse position data
+
+    // Only show the popup in the frame the mouse is in
+    if (window !== lastMouseEvent.view) {
+        console.log("Ignoring popup in incorrect frame");
+        return;
+    }
+
+    let frameDocument = lastMouseEvent.target.ownerDocument;
+    let existingPopup = frameDocument.getElementById("custom-popup");
+
     if (existingPopup) {
         existingPopup.remove();
     }
 
-    let popup = document.createElement("div");
+    let popup = frameDocument.createElement("div");
     popup.id = "custom-popup";
     popup.innerText = text;
 
-    // Styling the popup
+    // Position the popup near the cursor
     Object.assign(popup.style, {
         position: "absolute",
-        left: mouseX + 10 + "px",  // Slight offset for better visibility
-        top: mouseY + 10 + "px",
+        left: lastMouseEvent.clientX + "px",
+        top: lastMouseEvent.clientY + 20 + "px",
         backgroundColor: "black",
         color: "white",
         padding: "10px",
         borderRadius: "5px",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
         fontSize: "14px",
-        zIndex: "100000"
+        zIndex: "100000",
+        pointerEvents: "none"
     });
 
-    document.body.appendChild(popup);
+    frameDocument.body.appendChild(popup);
 
     setTimeout(() => {
         popup.remove();
-    }, 5000); // Hide after 5 seconds
+    }, 5000);
 }

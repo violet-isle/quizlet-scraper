@@ -17,15 +17,21 @@ cse_key = 'AIzaSyDO22ReOgKlXN-1xQ3Mg78fiKTi-AB7NEg'
 
 data_file_path = os.path.join(os.getcwd(), "python/data.txt")
 
+urlList = []
+data_dict = {}
 
 def query_existing_data(question):
     if (not os.path.exists(data_file_path)):
+        print("no data")
         return "No existing data found"
-    with open("python/data.txt", "r") as f:
-        lines = f.readlines()
-    best_match = process.extractOne(question, lines)
+    with open(data_file_path, "r") as f:
+        for line in f:
+            key, value = line.split("|||")  # Split at the first occurrence of |||
+            data_dict[key] = value  # Store in dictionary
+            data_dict[value] = key  # Store in dictionary
+    best_match = process.extractOne(question, list(data_dict.keys()))
     if (best_match and best_match[1] > 90):
-        return lines[best_match[2] + 1]
+        return data_dict[best_match[0]]
     else:
         return "No existing match found"
 
@@ -57,8 +63,6 @@ app = Flask(__name__)
 # Allow CORS for all domains (or specify a domain if needed)
 CORS(app)
 
-urlList = []
-
 
 open_tab_request = False
 tab_url = "https://google.com"
@@ -69,6 +73,7 @@ def receive_data():
     try:
         # Parse the incoming JSON data
         data = request.get_json()
+        print(data)
 
         if 'url' in data:
             if (str(data['url']).split("?")[0] not in urlList):
@@ -79,10 +84,11 @@ def receive_data():
             
         # Check if the 'text' key is in the received JSON
         if 'text' in data:
+            print(data)
             # Open the file in append mode
             with open(data_file_path, 'a') as file:
                 # Write the received text followed by a newline
-                file.write(str(data['text']).replace("<br>", "&&") + '\n')
+                file.write(str(data['text']).replace("<br>", "&&"))
                 
             return {'status': 'success'}, 200
         else:

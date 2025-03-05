@@ -23,8 +23,8 @@ const elements = document.evaluate(xpath, document, null, XPathResult.ORDERED_NO
 
 
 let extractedText = '';
-for (let i = 0; i < elements.snapshotLength; i++) {
-  extractedText += elements.snapshotItem(i).innerHTML.trim() + '\n';  // Append each item
+for (let i = 0; i < elements.snapshotLength; i+=2) {
+  extractedText += elements.snapshotItem(i).innerHTML.trim() + '|||' + elements.snapshotItem(i+1).innerHTML.trim() + "\n";  // Append each item
 }
 
 if (extractedText) {
