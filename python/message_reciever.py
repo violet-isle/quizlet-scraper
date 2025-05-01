@@ -18,10 +18,13 @@ cse_key = 'AIzaSyDO22ReOgKlXN-1xQ3Mg78fiKTi-AB7NEg'
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 data_file_path = os.path.join(script_dir, "data.txt")
+questions_file_path = os.path.join(script_dir, "questions.txt")
 
 
 urlList = []
 data_dict = {}
+
+questionList = []
 
 def query_existing_data(question):
     if (not os.path.exists(data_file_path)):
@@ -29,9 +32,14 @@ def query_existing_data(question):
         return "No existing data found"
     with open(data_file_path, "r") as f:
         for line in f:
-            key, value = line.split("|||")  # Split at the first occurrence of |||
-            data_dict[key] = value  # Store in dictionary
-            data_dict[value] = key  # Store in dictionary
+            if line != "":
+                if len(line.split("|||")) != 2:
+                    print(line)
+                else:
+                    key, value = line.split("|||")
+                    data_dict[key] = value
+                    data_dict[value] = key
+            
     best_match = process.extractOne(question, list(data_dict.keys()))
     if (best_match and best_match[1] > 90):
         return data_dict[best_match[0]]
@@ -144,6 +152,23 @@ def extension_query():
             else:
                 print(a)
                 print("Sorry, couldnt find a match")
+        
+        return jsonify({'message': a})
+
+    except Exception as e:
+        return {'error': str(e)}, 500
+
+
+@app.route('/question_set', methods=['GET'])
+def question_set():
+    
+    try:      
+        a = []
+        with open(questions_file_path, "r") as f:
+            for line in f:
+                questionList.append(line)
+                a.append(query_existing_data(line))
+        
         
         return jsonify({'message': a})
 
