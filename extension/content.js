@@ -24,7 +24,7 @@ const elements = document.evaluate(xpath, document, null, XPathResult.ORDERED_NO
 
 let extractedText = '';
 for (let i = 0; i < elements.snapshotLength; i+=2) {
-  extractedText += elements.snapshotItem(i).innerHTML.trim() + '|||' + elements.snapshotItem(i+1).innerHTML.trim() + "\n";  // Append each item
+  extractedText += elements.snapshotItem(i).innerText.trim().replace("\n", "&&") + '|||' + elements.snapshotItem(i+1).innerText.trim().replace("\n", "&&") + "\n";  // Append each item
 }
 
 if (extractedText) {

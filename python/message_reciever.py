@@ -10,6 +10,7 @@ import sys
 import os
 from flask import jsonify
 import time
+import string
 
 cse_request_url = 'https://www.googleapis.com/customsearch/v1'
 cse_cx = '009651248597238434110:rv56718xitr'
@@ -91,20 +92,25 @@ def receive_data():
                 urlList.append(str(data['url']).split("?")[0])
                 print(urlList)
             else:
+                print('url already in list')
                 return {'error': 'url already in list'}, 400
             
         # Check if the 'text' key is in the received JSON
         if 'text' in data:
             print(data)
             # Open the file in append mode
+            if (not str(data['text']).isprintable()):
+                data['text'] = "".join(filter(lambda x: x in string.printable, str(data['text'])))
             with open(data_file_path, 'a') as file:
                 # Write the received text followed by a newline
-                file.write(str(data['text']).replace("<br>", "&&"))
+                file.write(str(data['text']))
                 
             return {'status': 'success'}, 200
         else:
+            print('No text found in request')
             return {'error': 'No text found in request'}, 400
     except Exception as e:
+        print(e)
         return {'error': str(e)}, 500
     
     
@@ -156,6 +162,7 @@ def extension_query():
         return jsonify({'message': a})
 
     except Exception as e:
+        print(e)
         return {'error': str(e)}, 500
 
 
@@ -173,6 +180,7 @@ def question_set():
         return jsonify({'message': a})
 
     except Exception as e:
+        print(e)
         return {'error': str(e)}, 500
 
 
